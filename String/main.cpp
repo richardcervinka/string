@@ -1,6 +1,7 @@
 ﻿#include "String.h"
 
-void main() {
+void main()
+{
     char32_t s[] = U"z\u00df\u6c34\U0001f34c";
 
     std::string asciiFromUtf8 = String::Ascii::FromUtf8(u8"Kůň");
@@ -19,5 +20,9 @@ void main() {
     std::u32string utf32FromUtf8 = String::Utf32::FromUtf8(u8"Kůň");
     std::u32string utf32FromUtf16 = String::Utf32::FromUtf16(u"Kůň");
 
-	return;
+    return;
+}
+
+void PushUtf8(const char32_t ch, std::string& target)
+{
 }

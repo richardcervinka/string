@@ -14,7 +14,7 @@ std::size_t String::Ascii::Length(const std::string& ascii) noexcept
     return ascii.length();
 }
 
-inline char AsciiFromUnicode(const char32_t ch) noexcept
+inline static char AsciiFromUnicode(const char32_t ch) noexcept
 {
     if (ch <= 127)
     {
@@ -23,7 +23,7 @@ inline char AsciiFromUnicode(const char32_t ch) noexcept
     return '?';
 }
 
-std::string AsciiFromUtf8(const char* const utf8, const std::size_t length)
+static std::string AsciiFromUtf8(const char* const utf8, const std::size_t length)
 {
     std::string str;
     str.reserve(length);
@@ -49,7 +49,7 @@ std::string String::Ascii::FromUtf8(const std::string& utf8)
     return AsciiFromUtf8(utf8.data(), utf8.length());
 }
 
-std::string AsciiFromUtf16(const char16_t* const utf16, const std::size_t length)
+static std::string AsciiFromUtf16(const char16_t* const utf16, const std::size_t length)
 {
     std::string str;
     str.reserve(length);
@@ -75,7 +75,7 @@ std::string String::Ascii::FromUtf16(const std::u16string& utf16)
     return AsciiFromUtf16(utf16.data(), utf16.length());
 }
 
-std::string AsciiFromUtf32(const char32_t* const utf32, const std::size_t length)
+static std::string AsciiFromUtf32(const char32_t* const utf32, const std::size_t length)
 {
     std::string str;
     str.reserve(length);
@@ -118,7 +118,7 @@ std::size_t String::Utf8::Length(const std::string& utf8) noexcept
     return Length(utf8.data());
 }
 
-void PushUtf8(const char32_t ch, std::string& target)
+static void PushUtf8(const char32_t ch, std::string& target)
 {
     // 1 byte
     if (ch <= 0x7f)
@@ -152,7 +152,7 @@ void PushUtf8(const char32_t ch, std::string& target)
     }
 }
 
-std::string Utf8FromAscii(const char* const ascii, const std::size_t length)
+static std::string Utf8FromAscii(const char* const ascii, const std::size_t length)
 {
     std::string str;
     str.reserve(length);
@@ -185,7 +185,7 @@ std::string String::Utf8::FromAscii(const std::string& ascii)
     return Utf8FromAscii(ascii.data(), ascii.length());
 }
 
-std::string Utf8FromUtf16(const char16_t* const utf16, const std::size_t length)
+static std::string Utf8FromUtf16(const char16_t* const utf16, const std::size_t length)
 {
     std::string str;
     str.reserve(length);
@@ -211,7 +211,7 @@ std::string String::Utf8::FromUtf16(const std::u16string& utf16)
     return Utf8FromUtf16(utf16.data(), utf16.length());
 }
 
-std::string Utf8FromUtf32(const char32_t* const utf32, const std::size_t length)
+static std::string Utf8FromUtf32(const char32_t* const utf32, const std::size_t length)
 {
     std::string str;
     str.reserve(length);
@@ -254,7 +254,7 @@ std::size_t String::Utf16::Length(const std::u16string& utf16) noexcept
     return Length(utf16.data());
 }
 
-void PushUtf16(const char32_t ch, std::u16string& target)
+static void PushUtf16(const char32_t ch, std::u16string& target)
 {
     // Unicode define no characters in range 0xd800 - 0xdfff.
     if (ch >= 0xd800 && ch <= 0xdfff)
@@ -272,7 +272,7 @@ void PushUtf16(const char32_t ch, std::u16string& target)
     target.push_back(static_cast<char16_t>(ch));
 }
 
-std::u16string Utf16FromAscii(const char* const ascii, const std::size_t length)
+static std::u16string Utf16FromAscii(const char* const ascii, const std::size_t length)
 {
     std::u16string str;
     str.reserve(length);
@@ -305,7 +305,7 @@ std::u16string String::Utf16::FromAscii(const std::string& ascii)
     return Utf16FromAscii(ascii.data(), ascii.length());
 }
 
-std::u16string Utf16FromUtf8(const char* const utf8, const std::size_t length)
+static std::u16string Utf16FromUtf8(const char* const utf8, const std::size_t length)
 {
     std::u16string str;
     str.reserve(length);
@@ -331,7 +331,7 @@ std::u16string String::Utf16::FromUtf8(const std::string& utf8)
     return Utf16FromUtf8(utf8.data(), utf8.length());
 }
 
-std::u16string Utf16FromUtf32(const char32_t* const utf32, const std::size_t length)
+static std::u16string Utf16FromUtf32(const char32_t* const utf32, const std::size_t length)
 {
     std::u16string str;
     str.reserve(length);
@@ -369,7 +369,7 @@ std::size_t String::Utf32::Length(const std::u32string& utf32) noexcept
     return Length(utf32.data());
 }
 
-std::u32string Utf32FromAscii(const char* const ascii, const std::size_t length)
+static std::u32string Utf32FromAscii(const char* const ascii, const std::size_t length)
 {
     std::u32string str;
     str.reserve(length);
@@ -402,7 +402,7 @@ std::u32string String::Utf32::FromAscii(const std::string& ascii)
     return Utf32FromAscii(ascii.data(), ascii.length());
 }
 
-std::u32string Utf32FromUtf8(const char* const utf8, const std::size_t length)
+static std::u32string Utf32FromUtf8(const char* const utf8, const std::size_t length)
 {
     std::u32string str;
     str.reserve(length);
@@ -428,7 +428,7 @@ std::u32string String::Utf32::FromUtf8(const std::string& utf8)
     return Utf32FromUtf8(utf8.data(), utf8.length());
 }
 
-std::u32string Utf32FromUtf16(const char16_t* const utf16, const std::size_t length)
+static std::u32string Utf32FromUtf16(const char16_t* const utf16, const std::size_t length)
 {
     std::u32string str;
     str.reserve(length);
